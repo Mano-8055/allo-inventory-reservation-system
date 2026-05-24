@@ -2,9 +2,13 @@
 
 A Next.js inventory reservation platform for multi-warehouse retail. Customers can browse products, reserve stock for a 10-minute window, and confirm or cancel their reservation.
 
-## Live demo
+## Live Demo
 
-> Deploy URL goes here (Vercel)
+https://allo-inventory-reservation-system-beta.vercel.app
+
+## Repository
+
+https://github.com/Mano-8055/allo-inventory-reservation-system
 
 ---
 
@@ -35,7 +39,6 @@ Fill in `.env`:
 |---|---|
 | `DATABASE_URL` | Pooled Postgres connection string (used by the app at runtime) |
 | `DIRECT_URL` | Direct (non-pooled) connection string (used by Prisma migrations) |
-| `CRON_SECRET` | Any random string — protects the cron endpoint |
 
 ### 3. Run migrations and seed
 
@@ -85,13 +88,11 @@ Redis would be the right choice if the stock check needed to span multiple table
 
 ### Reservation expiry
 
-Two complementary mechanisms:
+Reservations expire through lazy cleanup on read.
 
-1. **Vercel Cron (production)** — `vercel.json` schedules `GET /api/cron/expire-reservations` every minute. The endpoint finds all `pending` reservations past their `expiresAt`, decrements `reservedUnits`, and marks them `released`. The endpoint is protected by a `CRON_SECRET` bearer token.
+Whenever a reservation is fetched, confirmed, or acted upon, the system verifies whether the expiration time has passed. Expired reservations are automatically released and reserved inventory is returned to available stock.
 
-2. **Lazy cleanup on read** — `GET /api/reservations/:id` checks whether the reservation is expired at read time and releases it inline. This means the checkout page always shows the correct state even if the cron hasn't run yet.
-
-The combination means: worst-case staleness for the product listing page is ~1 minute (cron interval), but the checkout page is always accurate.
+This approach satisfies the expiry requirement while remaining compatible with serverless deployments.
 
 ### Data model
 
@@ -145,4 +146,3 @@ This is a lightweight, database-backed approach. With Redis, you could store the
 | GET | `/api/reservations/:id` | Get reservation (with lazy expiry) |
 | POST | `/api/reservations/:id/confirm` | Confirm reservation. Returns 410 if expired. |
 | POST | `/api/reservations/:id/release` | Release reservation early |
-| GET | `/api/cron/expire-reservations` | Cron endpoint — releases all expired pending reservations |
