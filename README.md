@@ -12,6 +12,24 @@ https://github.com/Mano-8055/allo-inventory-reservation-system
 
 ---
 
+## Screenshots
+
+### Product Listing
+
+![Product Listing](./screenshots/products.png)
+
+### Reservation Checkout
+
+![Reservation Checkout](./screenshots/reservation-page.png)
+
+### Reservation Confirmed
+
+![Reservation Confirmed](./screenshots/confirmation.png)
+
+### Reservation Expired
+
+![Reservation Expired](./screenshots/expired-reservation.png)
+
 ## Running locally
 
 ### Prerequisites

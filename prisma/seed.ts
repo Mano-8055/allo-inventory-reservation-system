@@ -45,7 +45,7 @@ async function main() {
         name: "4K Webcam",
         description: "Ultra HD webcam with auto-focus and built-in mic",
         sku: "4K-WC-003",
-        imageUrl: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400",
+        imageUrl: "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=400",
       },
     }),
     prisma.product.create({
