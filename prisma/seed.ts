@@ -45,7 +45,7 @@ async function main() {
         name: "4K Webcam",
         description: "Ultra HD webcam with auto-focus and built-in mic",
         sku: "4K-WC-003",
-        imageUrl: "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=400",
+        imageUrl: "https://images.unsplash.com/photo-1623949556303-b0d17d198863?w=400",
       },
     }),
     prisma.product.create({
@@ -53,7 +53,7 @@ async function main() {
         name: "USB-C Hub (7-in-1)",
         description: "HDMI 4K, 3x USB-A, SD card, 100W PD charging",
         sku: "USB-HUB-004",
-        imageUrl: "https://images.unsplash.com/photo-1625895197185-efcec01cffe0?w=400",
+        imageUrl: "https://images.unsplash.com/photo-1616578273461-3a99ce422de6?w=400",
       },
     }),
     prisma.product.create({
